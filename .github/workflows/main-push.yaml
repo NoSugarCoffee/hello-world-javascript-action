@@ -1,0 +1,30 @@
+name: main-push
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/ISSUE_TEMPLATE/**'
+      - '**.md'
+      - 'examples/**'
+  workflow_dispatch:
+
+jobs:
+  release:
+    environment:
+      name: xivart
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOOLING_BOT_GH_TOKEN }} # if you don't want to set write permissions use a PAT token
+          WITH_V: true
