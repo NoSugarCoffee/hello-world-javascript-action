@@ -32,7 +32,8 @@ jobs:
           VERBOSE: true
           INITIAL_VERSION: 0.0.0
           DEFAULT_BUMP: patch
-
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - name: version-tag-major
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
