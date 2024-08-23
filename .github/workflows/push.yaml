@@ -41,5 +41,5 @@ jobs:
           tag="$(git for-each-ref --sort=-v:refname --format '%(refname:lstrip=2)' | grep -E "$tagFmt" | head -n 1)"
           [[ "$tag" =~ ^(v[0-9]+) ]] # use ^(v[0-9]+) for vX
           major=${BASH_REMATCH[1]}
-          git tag -f "v$major"
-          git push -f origin "v$major"
+          git tag -f "$major"
+          git push -f origin "$major"
