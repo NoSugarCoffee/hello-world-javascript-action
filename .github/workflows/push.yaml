@@ -28,7 +28,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }} # if you don't want to set write permissions use a PAT token
           WITH_V: true
           PRERELEASE: true
-          RELEASE_BRANCHES: test
+          RELEASE_BRANCHES: master
           VERBOSE: true
           INITIAL_VERSION: 0.0.0
           DEFAULT_BUMP: patch
@@ -39,7 +39,7 @@ jobs:
           git fetch --tags
           tagFmt="^v?[0-9]+\.[0-9]+\.[0-9]+$"
           tag="$(git for-each-ref --sort=-v:refname --format '%(refname:lstrip=2)' | grep -E "$tagFmt" | head -n 1)"
-          major=${tag%%.*}
-          git tag -f "$major"
-          git push -f origin "$major"
-
+          [[ "$tag" =~ ^(v[0-9]+) ]] # use ^(v[0-9]+) for vX
+          major=${BASH_REMATCH[1]}
+          git tag -f "v$major"
+          git push -f origin "v$major"
