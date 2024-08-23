@@ -19,5 +19,5 @@ The time we greeted you.
 ```yaml
 uses: NoSugarCoffee/hello-world-javascript-action@v0.2.1
 with:
-  who-to-greet: 'Mona the Octocat'
+  who-to-greet: 'hello world'
 ```
